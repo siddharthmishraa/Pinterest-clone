@@ -1,3 +1,4 @@
+import { Span } from "next/dist/trace";
 import Image from "next/image";
 import Link from "next/link";
 import { ClipLoader } from "react-spinners";
@@ -29,12 +30,13 @@ export default function Home() {
           <ClipLoader color="#ef4444" size={120}></ClipLoader>
         </div>
         ) : gallery.length > 0 ? (
-          <div>
+          <div className="columns-2 md:colums-3 lg:columns-4 xl:columns-5 gap-4">
             {
               gallery.map(item=>{
                 return (
-                  <Link href = {`/pin/${item._id}`} key = {item._id} className = "relative mb-4">
-                    <Image src={item.imageUrl} alt = {item?.title} height={300} width={300} className="w-full h-auto rounded-lg"></Image>
+                  <Link href = {`/pin/${item._id}`} key = {item._id} className = "relative mb-4 group">
+                  <Image src={item.imageUrl} alt = {item?.title} height={300} width={300} className="w-full h-auto rounded-lg"></Image>
+                  <span className = "absolute inset-0 flex bg-black bg-opacity-50 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></span>
                   </Link>
                 )
               })

@@ -42,7 +42,9 @@ export default function Home() {
               })
             }
           </div>
-        ) : " "
+        ) : <h3 className="min-h-[750px] flex justify-center items-center text-red-500 text-4x1 fon-semibold">
+          No results found for your search
+        </h3>
     }
   </div>
   );

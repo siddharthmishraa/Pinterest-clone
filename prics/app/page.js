@@ -35,8 +35,8 @@ export default function Home() {
               gallery.map(item=>{
                 return (
                   <Link href = {`/pin/${item._id}`} key = {item._id} className = "relative mb-4 group">
-                  <Image src={item.imageUrl} alt = {item?.title} height={300} width={300} className="w-full h-auto rounded-lg"></Image>
-                  <span className = "absolute inset-0 flex bg-black bg-opacity-50 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></span>
+                  <Image src={item.imageUrl} alt = {item?.title} height={300} width={300} className="w-full h-auto rounded-lg m-1 p-0.25"></Image>
+                  <span className = "absolute inset-0 flex bg-black bg-opacity-50 opacity-0 group-hover:opacity-50  hover:rounded-lg transition-opacity duration-300"></span>
                   </Link>
                 )
               })

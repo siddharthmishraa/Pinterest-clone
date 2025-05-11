@@ -21,11 +21,11 @@ const SignUp = () => {
     const [imagePreview, setimagePreview] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // useEffect(() => {
-    //     if(session){
-    //         router.push("/");
-    //     }
-    // }, [session, router])
+    useEffect(() => {
+        if(session){
+            router.push("/");
+        }
+    }, [session, router])
 
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -82,11 +82,11 @@ const SignUp = () => {
             
                 </div>
             
-                <h2 className="text-center text-x1 font-semibold mb-1">
+                <h2 className="text-center text-xl font-semibold mb-1">
                     Welcome to PRICS!
                 </h2>
             
-                <p className="text-center text-gray-500 mb-6">Find .</p>
+                <p className="text-center text-gray-500 mb-6">Find suggestions you didn't know, you needed.</p>
             
                 <input type="text" placeholder="Username" className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-black-500" value={username} 
                 onChange={(e)=> setUsername(e.target.value)}>
@@ -158,8 +158,8 @@ const SignUp = () => {
 
                 <p className="text-center text-sm mt-4">
                     Already a Member?
-                    <Link href="/login" className="text-blue-600 hover:underline">
-                            Login
+                    <Link href="/signin" className="text-blue-600 hover:underline">
+                            Signin
                     </Link>                    
                 </p>
             

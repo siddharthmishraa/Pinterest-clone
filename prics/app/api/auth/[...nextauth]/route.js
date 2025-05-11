@@ -42,7 +42,7 @@ const authOptions = {
                 if(!isPasswordMatched) return null;
 
                 return {
-                    name: user.name,
+                    name: user.username,
                     email: user.email,
                     image: user.image,
                 };
@@ -53,6 +53,25 @@ const authOptions = {
 
     pages: {
         signIn: "/signin",
+    },
+
+    callbacks: {
+        async jwt({token,user}) {
+            if(user){
+                token.name = user.name;
+                token.email = user.email;
+                token.image = user.image;
+            }
+            return token;
+        }
+    },
+    async session({session, token}){
+        if(token){
+            session.user.name = token.name;
+            session.user.email = token.email;
+            session.user.image = token.image;
+        }
+        return session;
     },
 
 };

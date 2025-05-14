@@ -29,7 +29,7 @@ const authOptions = {
                 password: { label: "Password",type: "password" },
             },
             async authorize(credentials){
-                connectToDB();
+                await connectToDB();
 
                 const user = await User.findOne({username: credentials.username});
                 if(!user){
@@ -63,17 +63,16 @@ const authOptions = {
                 token.image = user.image;
             }
             return token;
-        }
+        },
+        async session({session, token}){
+            if(token){
+                session.user.name = token.name;
+                session.user.email = token.email;
+                session.user.image = token.image;
+            }
+            return session;
+        },
     },
-    async session({session, token}){
-        if(token){
-            session.user.name = token.name;
-            session.user.email = token.email;
-            session.user.image = token.image;
-        }
-        return session;
-    },
-
 };
 
 

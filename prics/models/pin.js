@@ -28,9 +28,13 @@ const  pinschema = new mongoose.Schema({
         url: String,
     },
 
-    likes:{
-        user: String,
-    },
+    likes:[
+        {
+            user: {
+                type: String,
+            },
+        },
+    ],
 
     comments:[
         {

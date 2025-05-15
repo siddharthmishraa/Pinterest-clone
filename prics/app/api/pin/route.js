@@ -49,4 +49,30 @@ export const POST = async (req) => {
         return NextResponse.json({error: "Error uploading pin"}, {status: 500});
     }
 
-}
+};
+
+export const GET = async(req) =>{
+    await connectToDB();
+    const search = req.nextUrl.searchParams.get("search");
+
+    let pins;
+
+    if(search){
+        const searchRegex = new RegExp(search, "i")
+
+        pins = await Pin.find({
+            $or:[
+                    {title: {$regex:searchRegex}},
+                    {description: {$regex:searchRegex}},
+                    {tags: {$in:[search]}},
+            ],
+        })
+    } else{
+        pins = await Pin.find();
+    }
+    return NextResponse.json({
+        success: true,
+        pins,
+    }, {status: 200}
+);
+};

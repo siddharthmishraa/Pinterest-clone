@@ -25,7 +25,7 @@ const NavBar = () => {
 
                 <div className="flex items-center space-x-4">
 
-                    <Image src={"/prics.PNG"} width={50} height={50} alt="LOGO" className="w-9 h-9"></Image>
+                    <Image src={"/prics.PNG"} width={50} height={50} alt="LOGO" className="w-9 h-9" priority={true}></Image>
 
                     <Link href="/" className="hidden sm:block text-black text-xl transition-all duration-300 hover:text-red-500">Home</Link>
 
@@ -56,7 +56,7 @@ const NavBar = () => {
 
                             {
                                 session?.user?.image && (
-                                    <Image src={session.user.image} alt="Avatar" width={50} height={50} className="w-10 h-10 rounded-full border object-cover cursor-pointer"></Image>
+                                    <Image src={session.user.image} alt="Avatar" width={50} height={50} className="w-10 h-10 rounded-full border object-cover cursor-pointer" priority={true}></Image>
                                 )
                             }
 

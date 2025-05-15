@@ -19,6 +19,11 @@ const Pin = () => {
         const {id}= useParams();
         const {data:session} = useSession();
 
+        const fetchMorePins = async()=>{
+            const response = await axios.get("http://localhost:3000/api/pin");
+            setMorePins(response.data.pins);
+        }
+
         const fetchPin = async() =>{
             const response = await axios.get(`http://localhost:3000/api/pin/${id}`);
             setPin(response.data.pin);
@@ -37,6 +42,7 @@ const Pin = () => {
 
         useEffect(() =>{
             fetchPin();
+            fetchMorePins();
         }, [id]);
 
     return(
@@ -58,6 +64,7 @@ const Pin = () => {
                                     className="rounded-xl shadow-lg max-h-[600px] object-cover w-auto md:ml-auto "
                                     width={300}
                                     height={300}
+                                    priority={true}
                                     />
 
                             </div>
@@ -107,7 +114,7 @@ const Pin = () => {
                                             <Image width={100} height={100}
                                             src={element?.image?.url} alt={"Pin"}
                                                 className="w-32 h-32 object-cover
-                                                rounded-lg shadow-md" ></Image>
+                                                rounded-lg shadow-md" priority={true} ></Image>
                                         </Link>
                                     )
                                 })}

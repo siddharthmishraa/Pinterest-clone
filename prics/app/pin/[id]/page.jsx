@@ -49,7 +49,7 @@ const Pin = () => {
         <>
 
         {
-            pin && pin?.image?.url ? (
+            pin && pin?.image?.url && morePins? (
                 <div className="min-h-screen py-3 md:py-6">
 
                     <div className="container mx-auto px-4">

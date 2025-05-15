@@ -9,12 +9,12 @@ import React, { useState } from "react";
 const NavBar = () => {
 
     const{data: session} = useSession();
-    const router = useRouter;
+    const router = useRouter();
     const[query, setQuery] = useState("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleSearch = () => {
-        router.push(`/$search=${query}`)
+        router.push(`/?search=${query}`)
     }
 
     return (

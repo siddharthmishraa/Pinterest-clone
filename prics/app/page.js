@@ -1,13 +1,19 @@
 "use client"
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 export default function Home() {
 
+  const{data: session} = useSession();
+
   const [pins, setPins] = useState([]);
+
+
 
   // const pins = 
   // [
@@ -28,20 +34,28 @@ export default function Home() {
   //   },
   // ];
 
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
   const getPins = async () => {
-    const url = "http://localhost:3000/api/pin";
-    const response = await axios.get(url);
-    setPins(response.data.pins)
-  }
+    try {
+      const url = search ? `http://localhost:3000/api/pin?search=${search}` : "http://localhost:3000/api/pin";
+      const response = await axios.get(url);
+      setPins(response.data.pins);
+    } catch (error) {
+      console.error("Error fetching images:", error);
+      setImages([]); // to avoid indefinite loader
+    }
+  };
+  
 
   useEffect(()=> {
-    getPins()
-  },[] )
+    getPins();
+  },[search, session] );
 
   return (
     <div className="container mx-auto p-4">
-    {
-      !pins || pins.length <= 0 ? (
+    {(!pins || pins.length <= 0 && !search) ? (
       <div className="flex justify-center items-center min-h-[750px]">
           <ClipLoader color="#ef4444" size={120}></ClipLoader>
         </div>

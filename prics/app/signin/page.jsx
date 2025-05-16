@@ -19,11 +19,11 @@ const Signin = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // useEffect(() => {
-    //     if(session){
-    //         router.push("/");
-    //     }
-    // }, [session, router])
+    useEffect(() => {
+        if(session){
+            router.push("/");
+        }
+    }, [session, router])
 
     const handleCredentialsLogin = async() => {
         console.log("Credentials Login")
@@ -34,7 +34,7 @@ const Signin = () => {
             return;
         }
         
-        const res = await signIn("credentials", {redirect: true, callbackUrl: "/", username, password});
+        const res = await signIn("credentials", {redirect: true, callbackUrl: '/', username, password});
         setLoading(false);
         if(res.error){
             setLoading(false);

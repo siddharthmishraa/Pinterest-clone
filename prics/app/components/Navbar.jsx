@@ -12,9 +12,13 @@ const NavBar = () => {
     const router = useRouter();
     const[query, setQuery] = useState("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+
 
     const handleSearch = () => {
         router.push(`/?search=${query}`)
+        setQuery('');
     }
 
     return (
@@ -35,23 +39,18 @@ const NavBar = () => {
 
                 <div className="hidden sm:block w-1/2">
 
-                    <div className="relative">
-
-                        <input type="text" placeholder="Search" className="w-full py-2 px-4 rounded-full border border-gray-300
-                            focus:outline-none focus:ring-2 focus:ring-red-500 pr-12" 
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)} />
-                        
-                        <Search onClick={handleSearch} className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full bg-red-500 text-white w-8 h-8 p-1 trnasition-all duration-300 hover:bg-red-700 cursor-pointer"></Search>
-
-                    </div>
+                <div className="relative">
+                            <input type="text" placeholder="Search" className="w-full py-2 px-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 pr-12" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSearch();
+                            }} ></input>
+                            <Search onClick={handleSearch} className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full bg-gray-500 text-white w-8 h-8 p-1 transition-all duration-300 hover:bg-gray-700 cursor-pointer"></Search>
+                 </div>
 
                 </div>
 
                 <div className="flex items-center gap-4">
 
-                    <div className="flex items-center space-x-4">
-                        {/* //todo:Make the logout as button as the transitioning from avatar to logout makes it disapper. */}
+                    {/* <div className="flex items-center space-x-4">
                         <div className="relative group">
 
                             {
@@ -66,6 +65,22 @@ const NavBar = () => {
 
                         </div>
 
+                    </div> */}
+                    <div className="flex items-center space-x-4 relative">
+                            {session?.user?.image && (
+                            <div className="relative">
+                                <Image src={session.user.image} alt="Avatar" width={50} height={50} onClick={toggleDropdown} className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-500" priority={true}/>
+                                {isDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border rounded-lg z-10">
+                                    <button className="block px-4 py-2 text-gray-500 w-full text-start hover:bg-gray-100" onClick={() => {
+                                        setDropdownOpen(false); 
+                                        signOut({ callbackUrl: "/signin" });}}>
+                                        Log Out
+                                    </button>
+                                </div>
+                                )}
+                            </div>
+                            )}
                     </div>
                     
                     <Menu className="text-red-500 cursor:pointer block sm:hidden" onClick={()=> setIsMenuOpen(!isMenuOpen)} size={40}></Menu>
